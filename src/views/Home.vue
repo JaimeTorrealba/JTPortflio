@@ -7,21 +7,25 @@ import * as THREE from "three";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import * as dat from "dat.gui";
+import { gsap } from "gsap";
+//Assets for ThreeJS working
+import helvetikFont from "../assets/ThreeJS/fonts/helvetiker_regular.typeface.json";
+import whiteBluff from "../assets/ThreeJS/whitefluff.png";
+import startParticle from "../assets/ThreeJS/startParticle.png";
 
 export default {
   mounted() {
-    console.log('THREE:::',THREE);
     const canvas = document.querySelector("canvas.webgl");
     const scene = new THREE.Scene();
-
     /**
      * Helpers and Debugger
      */
-    const axesHelper = new THREE.AxesHelper();
-    scene.add(axesHelper);
-
-    const gui = new dat.GUI();
-
+    if (process.env.NODE_ENV === "development") {
+      console.log("THREE:::", THREE);
+      const axesHelper = new THREE.AxesHelper();
+      scene.add(axesHelper);
+      const gui = new dat.GUI();
+    }
     /**
      * Sizes
      */
@@ -59,12 +63,8 @@ export default {
      * Textures
      */
     const textureLoader = new THREE.TextureLoader();
-    const matcaptexture = textureLoader.load(
-      "/src/assets/matcaps/whitefluff.png"
-    );
-    const particlesTexture = textureLoader.load(
-      "https://assets.codepen.io/4698468/startParticle.png"
-    );
+    const matcaptexture = textureLoader.load(whiteBluff);
+    const particlesTexture = textureLoader.load(startParticle);
     //"/src/assets/matcaps/whitefluff.png"
 
     /**
@@ -83,7 +83,7 @@ export default {
       "position",
       new THREE.BufferAttribute(position, 3)
     );
-    //material
+    //Material
     const particlesMaterial = new THREE.PointsMaterial();
     particlesMaterial.size = 0.1;
     particlesMaterial.sizeAttenuation = true; //mantendrá siempre el tamaño de las particulas sin importar la distancia
@@ -98,13 +98,7 @@ export default {
     const firstRingGroup = new THREE.Group();
     const secondRingGroup = new THREE.Group();
     scene.add(firstRingGroup, secondRingGroup);
-    const firstRingWords = [
-      "ThreeJs",
-      "VueJS",
-      "GSAP",
-      "ReactJs",
-      "Flutter",
-    ];
+    const firstRingWords = ["ThreeJs", "VueJS", "GSAP", "ReactJs", "Flutter"];
     const secondRingWords = [
       "CSS",
       "Figma",
@@ -116,10 +110,9 @@ export default {
       "MongoDB",
       "Webpack",
     ];
-
     const fontLoader = new FontLoader();
     fontLoader.load(
-      "/src/assets/fonts/helvetiker_regular.typeface.json",
+      "https://assets.codepen.io/4698468/helvetiker_regular.typeface.json",
       (font) => {
         const fontParams = {
           font: font,
@@ -144,11 +137,11 @@ export default {
         );
         textGeometrySubTitle.center();
 
-        const material = new THREE.MeshMatcapMaterial({
+        const textMaterial = new THREE.MeshMatcapMaterial({
           matcap: matcaptexture,
         });
-        const textTitle = new THREE.Mesh(textGeometryTitle, material);
-        const textSubTitle = new THREE.Mesh(textGeometrySubTitle, material);
+        const textTitle = new THREE.Mesh(textGeometryTitle, textMaterial);
+        const textSubTitle = new THREE.Mesh(textGeometrySubTitle, textMaterial);
         textSubTitle.position.y = -0.9;
 
         /**
@@ -161,41 +154,73 @@ export default {
           const angle = range * Math.PI * 2.2; // Random angle
           const radius = 2.5 + range; // Random radius
           textGeometryFirstRingWords.center();
-          const firstRingWord = new THREE.Mesh(
+          const firstRing = new THREE.Mesh(
             textGeometryFirstRingWords,
-            material
+            textMaterial
           );
-
           const y = Math.cos(angle) * radius;
           const x = Math.sin(angle) * radius;
 
-          firstRingWord.position.set(x, y, -2);
-          firstRingGroup.add(firstRingWord);
-          
+          firstRing.position.set(x, y, -2);
+
+          firstRingGroup.add(firstRing);
+           gsap.from(firstRing.position, {
+            duration: 1.3,
+            opacity: 1,
+            x: 0,
+            y: 2,
+            z: 0.5,
+            delay:0.15
+          });
         });
-        fontParams.bevelThickness = 0.01
+
+        fontParams.bevelThickness = 0.01;
         secondRingWords.map((map, index) => {
           const textGeometrySecondRingWords = new TextGeometry(map, fontParams);
-          const range = (index % secondRingWords.length) / secondRingWords.length;
+
+          const range =
+            (index % secondRingWords.length) / secondRingWords.length;
           const angle = range * Math.PI * 2; // Random angle
           const radius = 4.5 + range; // Random radius
           textGeometrySecondRingWords.center();
-          const secondRingWord = new THREE.Mesh(
+          const secondRing = new THREE.Mesh(
             textGeometrySecondRingWords,
-            material
+            textMaterial
           );
 
           const y = Math.cos(angle) * radius;
           const x = Math.sin(angle) * radius;
+          secondRing.position.set(x, y, -2.5);
 
-          secondRingWord.position.set(x, y, -2.5);
-          secondRingGroup.add(secondRingWord);
-          
+          gsap.from(secondRing.position, {
+            duration: 1.3,
+            opacity: 1,
+            x: 0,
+            y: 2,
+            z: 0.5,
+            delay:0.25
+          });
+          secondRingGroup.add(secondRing);
         });
 
+        gsap.from(textTitle.position, {
+          duration: 1.3,
+          opacity: 1,
+          x: 0,
+          y: 2,
+          z: 0.5,
+        });
+        gsap.from(textSubTitle.position, {
+          duration: 1,
+          opacity: 0,
+          x: 0,
+          y: -2,
+          z: 0.5,
+        });
         scene.add(textTitle, textSubTitle);
       }
     );
+
     /**
      * Camera
      */
@@ -226,13 +251,22 @@ export default {
 
     const tick = () => {
       const elapsedTime = clock.getElapsedTime();
-
       // Render
       renderer.render(scene, camera);
       // Mouse Camera
       camera.position.x = cursor.x;
       camera.position.y = cursor.y;
-
+      secondRingGroup.lookAt(
+        camera.position.x * 1.05,
+        camera.position.y,
+        camera.position.z
+      );
+      firstRingGroup.lookAt(
+        camera.position.x * -1.05,
+        camera.position.y,
+        camera.position.z
+      );
+      // camera.updateProjectionMatrix = camera.lookAt( 0, 0, 0 );
       // Call tick again on the next frame
       window.requestAnimationFrame(tick);
     };
