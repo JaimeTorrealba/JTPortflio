@@ -110,6 +110,8 @@ export default {
       "MongoDB",
       "Webpack",
     ];
+    const tlFirstRing = gsap.timeline({ repeat: -1, repeatDelay: 0.001 });
+    const tlSecondRing = gsap.timeline({ repeat: -1, repeatDelay: 0.001 });
     const fontLoader = new FontLoader();
     fontLoader.load(
       "https://assets.codepen.io/4698468/helvetiker_regular.typeface.json",
@@ -139,6 +141,11 @@ export default {
 
         const textMaterial = new THREE.MeshMatcapMaterial({
           matcap: matcaptexture,
+          transparent: true,
+        });
+        const textMaterialFirstRing = new THREE.MeshMatcapMaterial({
+          matcap: matcaptexture,
+          transparent: true,
         });
         const textTitle = new THREE.Mesh(textGeometryTitle, textMaterial);
         const textSubTitle = new THREE.Mesh(textGeometrySubTitle, textMaterial);
@@ -156,22 +163,35 @@ export default {
           textGeometryFirstRingWords.center();
           const firstRing = new THREE.Mesh(
             textGeometryFirstRingWords,
-            textMaterial
+            textMaterialFirstRing
           );
           const y = Math.cos(angle) * radius;
           const x = Math.sin(angle) * radius;
 
           firstRing.position.set(x, y, -2);
+          firstRing.rotation.y = -0.3;
 
           firstRingGroup.add(firstRing);
-           gsap.from(firstRing.position, {
-            duration: 1.3,
-            opacity: 1,
+          gsap.from(firstRing.position, {
+            duration: 1,
             x: 0,
             y: 2,
             z: 0.5,
-            delay:0.15
           });
+          tlFirstRing
+            .from(
+              firstRing.rotation,
+              {
+                stagger: { each: 0.1 },
+                duration: 1.3,
+                x: 0,
+                y: 0.3,
+                z: 0,
+                delay: 0.000015,
+              },
+              "-=0.5"
+            )
+            .yoyo(true);
         });
 
         fontParams.bevelThickness = 0.01;
@@ -191,17 +211,29 @@ export default {
           const y = Math.cos(angle) * radius;
           const x = Math.sin(angle) * radius;
           secondRing.position.set(x, y, -2.5);
+          secondRing.rotation.y = 0.3;
 
-          gsap.from(secondRing.position, {
-            duration: 1.3,
-            opacity: 1,
-            x: 0,
-            y: 2,
-            z: 0.5,
-            delay:0.25
-          });
+          tlSecondRing
+            .from(
+              secondRing.rotation,
+              {
+                stagger: { each: 0.1 },
+                duration: 1,
+                x: 0,
+                y: -0.3,
+                z: 0,
+                delay: 0.000015,
+              },
+              "-=0.5"
+            )
+            .yoyo(true);
+
           secondRingGroup.add(secondRing);
         });
+
+        /**
+         * Start animation Titles 
+         */
 
         gsap.from(textTitle.position, {
           duration: 1.3,
@@ -247,6 +279,16 @@ export default {
     /**
      * Animate
      */
+    //start animation second ring
+    gsap.from(secondRingGroup.position, {
+      duration: 1.3,
+      opacity: 1,
+      x: 0,
+      y: 2,
+      z: 0.5,
+      delay: 0.25,
+    });
+
     const clock = new THREE.Clock();
 
     const tick = () => {
