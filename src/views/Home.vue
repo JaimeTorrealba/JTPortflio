@@ -1,15 +1,17 @@
 <template>
+  <navBar /> 
   <canvas class="webgl"></canvas>
 </template>
 
 <script>
+import navBar from '../components/navBar.vue'
+//Three JS stuff
 import * as THREE from "three";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import * as dat from "dat.gui";
 import { gsap } from "gsap";
 //Assets for ThreeJS working
-import helvetikFont from "../assets/ThreeJS/fonts/helvetiker_regular.typeface.json";
 import whiteBluff from "../assets/ThreeJS/whitefluff.png";
 import startParticle from "../assets/ThreeJS/startParticle.png";
 
@@ -24,7 +26,7 @@ export default {
       console.log("THREE:::", THREE);
       const axesHelper = new THREE.AxesHelper();
       scene.add(axesHelper);
-      const gui = new dat.GUI();
+     // const gui = new dat.GUI();
     }
     /**
      * Sizes
@@ -315,6 +317,9 @@ export default {
 
     tick();
   },
+  components:{
+    navBar,
+  }
 };
 </script>
 
@@ -324,5 +329,6 @@ export default {
   top: 0;
   left: 0;
   outline: none;
+  z-index:-100;
 }
 </style>

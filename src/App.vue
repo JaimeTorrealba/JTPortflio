@@ -8,17 +8,5 @@
   <router-view></router-view>
 </template>
 
-<style>
-#app {
-  min-height: 100vh;
-}
-* {
-  margin: 0;
-  padding: 0;
-}
-
-html,
-body {
-  overflow: hidden;
-}
+<style src="./assets/styles/global.scss" >
 </style>
