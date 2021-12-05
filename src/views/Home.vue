@@ -1,10 +1,10 @@
 <template>
-  <navBar /> 
+  <navBar />
   <canvas class="webgl"></canvas>
 </template>
 
 <script>
-import navBar from '../components/navBar.vue'
+import navBar from "../components/navBar.vue";
 //Three JS stuff
 import * as THREE from "three";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
@@ -12,8 +12,9 @@ import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import * as dat from "dat.gui";
 import { gsap } from "gsap";
 //Assets for ThreeJS working
-import whiteBluff from "../assets/ThreeJS/whitefluff.png";
-import startParticle from "../assets/ThreeJS/startParticle.png";
+import whiteBluff from "../assets/ThreeJS/assets/whitefluff.png";
+import galaxyVertexShader from '../assets/ThreeJS/shaders/particlesCircle/vertex.glsl'
+import galaxyVertexFragment from '../assets/ThreeJS/shaders/particlesCircle/fragment.glsl'
 
 export default {
   mounted() {
@@ -26,8 +27,122 @@ export default {
       console.log("THREE:::", THREE);
       const axesHelper = new THREE.AxesHelper();
       scene.add(axesHelper);
-     // const gui = new dat.GUI();
+      // const gui = new dat.GUI();
     }
+    const parameters = {};
+    parameters.count = 200000;
+    parameters.size = 0.005;
+    parameters.radius = 5;
+    parameters.branches = 3;
+    parameters.spin = 1;
+    parameters.randomness = 0.5;
+    parameters.randomnessPower = 3;
+    parameters.insideColor = "#ff6030";
+    parameters.outsideColor = "#1b3984";
+
+    let geometry = null;
+    let material = null;
+    let points = null;
+
+    const generateGalaxy = () => {
+      if (points !== null) {
+        geometry.dispose();
+        material.dispose().scene.remove(points);
+      }
+
+      /**
+       * Geometry
+       */
+      geometry = new THREE.BufferGeometry();
+
+      const positions = new Float32Array(parameters.count * 3);
+      const colors = new Float32Array(parameters.count * 3);
+      const scales = new Float32Array(parameters.count * 1);
+      const randomness = new Float32Array(parameters.count * 3);
+
+      const insideColor = new THREE.Color(parameters.insideColor);
+      const outsideColor = new THREE.Color(parameters.outsideColor);
+
+      for (let i = 0; i < parameters.count; i++) {
+        const i3 = i * 3;
+
+        // Position
+        const radius = Math.random() * parameters.radius;
+
+        const branchAngle =
+          ((i % parameters.branches) / parameters.branches) * Math.PI * 2;
+
+        positions[i3] = Math.cos(branchAngle) * radius;
+        positions[i3 + 1] = 0;
+        positions[i3 + 2] = Math.sin(branchAngle) * radius;
+
+        const randomX =
+          Math.pow(Math.random(), parameters.randomnessPower) *
+          (Math.random() < 0.5 ? 1 : -1) *
+          parameters.randomness *
+          radius;
+        const randomY =
+          Math.pow(Math.random(), parameters.randomnessPower) *
+          (Math.random() < 0.5 ? 1 : -1) *
+          parameters.randomness *
+          radius;
+        const randomZ =
+          Math.pow(Math.random(), parameters.randomnessPower) *
+          (Math.random() < 0.5 ? 1 : -1) *
+          parameters.randomness *
+          radius;
+
+        randomness[i3] = randomX;
+        randomness[i3 + 1] = randomY;
+        randomness[i3 + 2] = randomZ;
+
+        // Color
+        const mixedColor = insideColor.clone();
+        mixedColor.lerp(outsideColor, radius / parameters.radius);
+
+        colors[i3] = mixedColor.r;
+        colors[i3 + 1] = mixedColor.g;
+        colors[i3 + 2] = mixedColor.b;
+
+        //Scale
+        scales[i] = Math.random();
+      }
+
+      geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positions, 3)
+      );
+      geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+      geometry.setAttribute("aScale", new THREE.BufferAttribute(scales, 1));
+      geometry.setAttribute(
+        "aRandomness",
+        new THREE.BufferAttribute(randomness, 3)
+      );
+
+      /**
+       * Material
+       */
+      material = new THREE.ShaderMaterial({
+        size: parameters.size,
+        sizeAttenuation: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        vertexColors: true,
+        vertexShader: galaxyVertexShader,
+        fragmentShader: galaxyVertexFragment,
+        uniforms: {
+          uSize: { value: 5 * 1.0 },
+          uTime: { value: 0 },
+        },
+      });
+
+      /**
+       * Points
+       */
+      points = new THREE.Points(geometry, material);
+      return scene.add(points);
+    };
+
     /**
      * Sizes
      */
@@ -66,54 +181,10 @@ export default {
      */
     const textureLoader = new THREE.TextureLoader();
     const matcaptexture = textureLoader.load(whiteBluff);
-    const particlesTexture = textureLoader.load(startParticle);
-    //"/src/assets/matcaps/whitefluff.png"
 
-    /**
-     * Particles
-     */
-    const particlesGeometry = new THREE.BufferGeometry(1, 32, 32);
-    const count = 1000;
-
-    const position = new Float32Array(count * 3); //se multiplica por 3 porque es un obj 3d y cada vertice tiene x y z (3 valores)
-
-    for (let i = 0; i < count * 3; i++) {
-      position[i] = (Math.random() - 0.5) * 15;
-    }
-
-    particlesGeometry.setAttribute(
-      "position",
-      new THREE.BufferAttribute(position, 3)
-    );
-    //Material
-    const particlesMaterial = new THREE.PointsMaterial();
-    particlesMaterial.size = 0.1;
-    particlesMaterial.sizeAttenuation = true; //mantendrá siempre el tamaño de las particulas sin importar la distancia
-    particlesMaterial.transparent = true;
-    particlesMaterial.alphaMap = particlesTexture;
-    particlesMaterial.alphaTest = 0.01;
-    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particles);
     /**
      * Font
      */
-    const firstRingGroup = new THREE.Group();
-    const secondRingGroup = new THREE.Group();
-    scene.add(firstRingGroup, secondRingGroup);
-    const firstRingWords = ["ThreeJs", "VueJS", "GSAP", "ReactJs", "Flutter"];
-    const secondRingWords = [
-      "CSS",
-      "Figma",
-      "Javascript",
-      "Python",
-      "Git",
-      "Dart",
-      "AWS",
-      "MongoDB",
-      "Webpack",
-    ];
-    const tlFirstRing = gsap.timeline({ repeat: -1, repeatDelay: 0.001 });
-    const tlSecondRing = gsap.timeline({ repeat: -1, repeatDelay: 0.001 });
     const fontLoader = new FontLoader();
     fontLoader.load(
       "https://assets.codepen.io/4698468/helvetiker_regular.typeface.json",
@@ -145,98 +216,10 @@ export default {
           matcap: matcaptexture,
           transparent: true,
         });
-        const textMaterialFirstRing = new THREE.MeshMatcapMaterial({
-          matcap: matcaptexture,
-          transparent: true,
-        });
+
         const textTitle = new THREE.Mesh(textGeometryTitle, textMaterial);
         const textSubTitle = new THREE.Mesh(textGeometrySubTitle, textMaterial);
         textSubTitle.position.y = -0.9;
-
-        /**
-         * First Ring
-         */
-
-        firstRingWords.map((map, index) => {
-          const textGeometryFirstRingWords = new TextGeometry(map, fontParams);
-          const range = (index % firstRingWords.length) / firstRingWords.length;
-          const angle = range * Math.PI * 2.2; // Random angle
-          const radius = 2.5 + range; // Random radius
-          textGeometryFirstRingWords.center();
-          const firstRing = new THREE.Mesh(
-            textGeometryFirstRingWords,
-            textMaterialFirstRing
-          );
-          const y = Math.cos(angle) * radius;
-          const x = Math.sin(angle) * radius;
-
-          firstRing.position.set(x, y, -2);
-          firstRing.rotation.y = -0.3;
-
-          firstRingGroup.add(firstRing);
-          gsap.from(firstRing.position, {
-            duration: 1,
-            x: 0,
-            y: 2,
-            z: 0.5,
-          });
-          tlFirstRing
-            .from(
-              firstRing.rotation,
-              {
-                stagger: { each: 0.1 },
-                duration: 1.3,
-                x: 0,
-                y: 0.3,
-                z: 0,
-                delay: 0.000015,
-              },
-              "-=0.5"
-            )
-            .yoyo(true);
-        });
-
-        fontParams.bevelThickness = 0.01;
-        secondRingWords.map((map, index) => {
-          const textGeometrySecondRingWords = new TextGeometry(map, fontParams);
-
-          const range =
-            (index % secondRingWords.length) / secondRingWords.length;
-          const angle = range * Math.PI * 2; // Random angle
-          const radius = 4.5 + range; // Random radius
-          textGeometrySecondRingWords.center();
-          const secondRing = new THREE.Mesh(
-            textGeometrySecondRingWords,
-            textMaterial
-          );
-
-          const y = Math.cos(angle) * radius;
-          const x = Math.sin(angle) * radius;
-          secondRing.position.set(x, y, -2.5);
-          secondRing.rotation.y = 0.3;
-
-          tlSecondRing
-            .from(
-              secondRing.rotation,
-              {
-                stagger: { each: 0.1 },
-                duration: 1,
-                x: 0,
-                y: -0.3,
-                z: 0,
-                delay: 0.000015,
-              },
-              "-=0.5"
-            )
-            .yoyo(true);
-
-          secondRingGroup.add(secondRing);
-        });
-
-        /**
-         * Start animation Titles 
-         */
-
         gsap.from(textTitle.position, {
           duration: 1.3,
           opacity: 1,
@@ -266,7 +249,7 @@ export default {
     );
     camera.position.x = 0.2;
     camera.position.y = 0;
-    camera.position.z = 5;
+    camera.position.z = 7;
     scene.add(camera);
 
     /**
@@ -279,47 +262,38 @@ export default {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     /**
+     * Galaxy
+     */
+
+    generateGalaxy();
+    console.log(generateGalaxy);
+
+    /**
      * Animate
      */
-    //start animation second ring
-    gsap.from(secondRingGroup.position, {
-      duration: 1.3,
-      opacity: 1,
-      x: 0,
-      y: 2,
-      z: 0.5,
-      delay: 0.25,
-    });
 
     const clock = new THREE.Clock();
 
     const tick = () => {
       const elapsedTime = clock.getElapsedTime();
+
+      //animated galaxy
+      material.uniforms.uTime.value = elapsedTime
+
       // Render
       renderer.render(scene, camera);
       // Mouse Camera
-      camera.position.x = cursor.x;
-      camera.position.y = cursor.y;
-      secondRingGroup.lookAt(
-        camera.position.x * 1.05,
-        camera.position.y,
-        camera.position.z
-      );
-      firstRingGroup.lookAt(
-        camera.position.x * -1.05,
-        camera.position.y,
-        camera.position.z
-      );
-      // camera.updateProjectionMatrix = camera.lookAt( 0, 0, 0 );
+      camera.position.x = cursor.x * 0.5;
+      camera.position.y = cursor.y * 0.5;
       // Call tick again on the next frame
       window.requestAnimationFrame(tick);
     };
 
     tick();
   },
-  components:{
+  components: {
     navBar,
-  }
+  },
 };
 </script>
 
@@ -329,6 +303,6 @@ export default {
   top: 0;
   left: 0;
   outline: none;
-  z-index:-100;
+  z-index: -100;
 }
 </style>
