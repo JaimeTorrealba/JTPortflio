@@ -30,15 +30,15 @@ export default {
       // const gui = new dat.GUI();
     }
     const parameters = {};
-    parameters.count = 200000;
+    parameters.count = 100000;
     parameters.size = 0.005;
     parameters.radius = 5;
-    parameters.branches = 3;
+    parameters.branches = 5;
     parameters.spin = 1;
     parameters.randomness = 0.5;
     parameters.randomnessPower = 3;
-    parameters.insideColor = "#ff6030";
-    parameters.outsideColor = "#1b3984";
+    parameters.insideColor = "#4568DC";
+    parameters.outsideColor = "#F7F7F7";
 
     let geometry = null;
     let material = null;
@@ -173,7 +173,6 @@ export default {
     };
     window.addEventListener("mousemove", (event) => {
       cursor.x = event.clientX / sizes.width - 0.5;
-      //El eje Y se debe invertir para crear coherencia con THREEJS
       cursor.y = -(event.clientY / sizes.height - 0.5);
     });
     /**
@@ -191,7 +190,7 @@ export default {
       (font) => {
         const fontParams = {
           font: font,
-          size: 0.35,
+          size: 0.15,
           height: 0.1,
           curveSegments: 6,
           bevelEnabled: true,
@@ -205,9 +204,9 @@ export default {
           fontParams
         );
         textGeometryTitle.center();
-        fontParams.size = 0.25;
+        fontParams.size = 0.10;
         const textGeometrySubTitle = new TextGeometry(
-          "Front-end dev",
+          "Creative Developer",
           fontParams
         );
         textGeometrySubTitle.center();
@@ -219,7 +218,8 @@ export default {
 
         const textTitle = new THREE.Mesh(textGeometryTitle, textMaterial);
         const textSubTitle = new THREE.Mesh(textGeometrySubTitle, textMaterial);
-        textSubTitle.position.y = -0.9;
+        textTitle.position.y = 0.2;
+        textSubTitle.position.y = -0.2;
         gsap.from(textTitle.position, {
           duration: 1.3,
           opacity: 1,
@@ -249,7 +249,7 @@ export default {
     );
     camera.position.x = 0.2;
     camera.position.y = 0;
-    camera.position.z = 7;
+    camera.position.z = 2.5;
     scene.add(camera);
 
     /**
