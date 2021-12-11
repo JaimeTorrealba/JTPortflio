@@ -10,8 +10,10 @@
     "dat.gui": "^0.7.7",
     "gsap": "^3.8.0",
     "three": "^0.134.0",
+    "vee-validate": "^4.5.7",
     "vue": "^3.2.16",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.3",
