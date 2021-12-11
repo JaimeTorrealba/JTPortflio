@@ -1,18 +1,126 @@
 <template>
   <div class="container cloud-container">
     <ul class="cloud">
-      <li><a data-weight="3"> Linkedin </a></li>
-      <li><a data-weight="5"> Instagram </a></li>
-      <li><a data-weight="2"> Behance </a></li>
-      <li><a data-weight="9"> Linkedin </a></li>
-      <li><a data-weight="7"> Codepen </a></li>
-      <li><a data-weight="6"> Medium </a></li>
-      <li><a data-weight="5"> Dribbble </a></li>
-      <li><a data-weight="4"> Gmail </a></li>
-      <li><a data-weight="5"> Berlin </a></li>
-      <li><a data-weight="1"> Google develop profile </a></li>
-      <li><a data-weight="7"> Github </a></li>
-      <li><a data-weight="6"> VueJobs </a></li>
+      <li>
+        <a
+          href="https://twitter.com/JaimeTorrealbaC"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="5"
+        >
+          Twitter
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.instagram.com/jaimebboyjt/"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="4"
+        >
+          Instagram
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://dev.page/jaimetorrealba"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="2"
+        >
+          Dev.page
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.behance.net/JaimeTorrealba"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="2"
+        >
+          Behance
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.linkedin.com/in/jaime-torrealba-cordova/"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="7"
+        >
+          Linkedin
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://codepen.io/https://codepen.io/jaimebboyjt"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="9"
+        >
+          Codepen
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://medium.com/@solucionesinformaticasjtc"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="5"
+        >
+          Medium
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://dribbble.com/Jaime_Torrealba"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="2"
+        >
+          Dribbble
+        </a>
+      </li>
+      <li>
+        <a
+          href="mailto:solucionesinformaticasjtc@gmail.com"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="4"
+        >
+          Gmail
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://wa.me/+56990594384"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="4"
+        >
+          Whatsapp
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://developers.google.com/profile/u/116357600065857102354"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="2"
+        >
+          Google develop profile
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://github.com/JaimeTorrealba"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="7"
+        >
+          Github
+        </a>
+      </li>
     </ul>
   </div>
 </template>
@@ -24,7 +132,7 @@ export default {
       i.style.setProperty("--size", i.dataset.weight);
     });
     console.log(gsap);
-    gsap.from("a", {
+    gsap.from(".cloud-tag-link", {
       duration: 1.3,
       opacity: 1,
       x: 100,
@@ -32,7 +140,7 @@ export default {
       delay: 0.1,
       opacity: 0,
       ease: "power1.inOut",
-      stagger:0.1
+      stagger: 0.1,
     });
   },
 };
@@ -53,7 +161,7 @@ ul.cloud {
 
 ul.cloud a {
   --size: 4;
-  color: #333;
+  color: var(--white);
   display: block;
   padding: 0.125rem 0.25rem;
   text-decoration: none;

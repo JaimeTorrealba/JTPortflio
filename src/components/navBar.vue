@@ -19,6 +19,7 @@ nav{
   display: flex;
   justify-content: space-between;
   padding: var(--small);
+  background-color:var(--black);
 }
 .navBar {
   color: white;

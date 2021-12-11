@@ -1,41 +1,95 @@
 <template>
-      <form
-        method="POST"
-        name="contact"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-        @submit.prevent="handleSubmit"
-      >
-        <input type="hidden" name="form-name" value="contact" />
-        <label>
-          Nombre
-          <input />
-        </label>
-        <label>
-          Email
-          <input />
-        </label>
-        <label>
-          Mensaje
-          <input class="myInput" />
-        </label>
-        <button class="submit-button">Click aquí</button>
-      </form>
+  <Form
+    method="POST"
+    name="contact"
+    data-netlify="true"
+    data-netlify-honeypot="bot-field"
+    @submit="onSubmit"
+  >
+    <textTitle text="Contact Form" />
+    <div class="form">
+      <input type="hidden" name="form-name" value="contact" />
+      <label>
+        Nombre:
+        <Field id="name" name="name" type="text" :rules="nameRule" />
+      </label>
+        <ErrorMessage name="name" /> 
+      <label>
+        Email:
+        <Field id="email" name="email" type="email" :rules="emailRule"  />
+      </label>
+      <ErrorMessage name="email" />
+      <label>
+        Mensaje:
+        <Field id="message" name="message" type="text" :rules="messageRule" />
+      </label>
+      <ErrorMessage name="message" />
+      <button type="submit" class="submit-button">Send message</button>     
+    </div>
+  </Form>
 </template>
 <script>
+import textTitle from "../common/Title.vue";
+
+import { Field, Form, ErrorMessage  } from "vee-validate";
+import * as yup from 'yup';
 export default {
+  components: {
+    textTitle,
+    Field,
+    Form,
+    ErrorMessage 
+  },
+  data() {
+    return {
+      emailRule: yup.string().required().email(),
+      nameRule: yup.string().required(),
+      messageRule: yup.string().required(),
+    }
+  },
+   methods: {
+    encode(data) {
+      return Object.keys(data)
+        .map(
+          (key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
+        )
+        .join("&");
+    },
+    onSubmit(event) {
+      console.log(event)
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: this.encode({
+          "form-name": "contact",
+          ...this.form,
+        }),
+      })
+        .then(() => {
+          document.getElementById('name').value = ''
+          document.getElementById('email').value = ''
+          document.getElementById('message').value = ''
+          console.log('todo bien')
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
-
 form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
   padding: var(--extralarge) var(--large);
   border-radius: 25px;
   background: #f7f7f7;
   box-shadow: inset 17px 17px 34px #d2d2d2, inset -17px -17px 34px #ffffff;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: var(--normal);
 }
 .submit-button {
   margin: var(--large) 0 0 0;
