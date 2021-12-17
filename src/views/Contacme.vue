@@ -1,24 +1,21 @@
 <template>
-  <navBar />
-  <main class="container form-view">
+  <div class="container form-view">
     <section class="section1">
       <CloudTag />
     </section>
     <section class="section2">
       <ContactForm />
     </section>
-  </main>
+  </div>
 </template>
 <script>
 import ContactForm from "../components/contacme/ContacForm.vue";
 import CloudTag from "../components/contacme/CloudTag.vue";
-import navBar from "../components/navBar.vue";
 
 export default {
   components: {
     ContactForm,
     CloudTag,
-    navBar,
   },
   methods: {
     encode(data) {
@@ -56,7 +53,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .form-view {
-  background-color: var(--black);
+ 
   min-height: 100vh;
   display:grid;
   grid-template-columns: 1fr 1fr;

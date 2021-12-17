@@ -1,5 +1,5 @@
 <template>
-  <div class="container cloud-container">
+  <div class="container cloud-container gradient-background">
     <ul class="cloud">
       <li>
         <a
@@ -148,6 +148,27 @@ export default {
 <style lang="scss" scoped>
 .cloud-container {
   max-width: 50vw;
+}
+.gradient-background {
+  background: radial-gradient(
+    circle,
+     rgba(171,200,223,1) 0%,
+    rgba(111,110,110,1) 25%,
+    var(--black) 55%
+  );
+  animation: gradients 2s ease infinite;
+}
+
+@keyframes gradients {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 ul.cloud {
   list-style: none;

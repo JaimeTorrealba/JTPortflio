@@ -1,5 +1,4 @@
 <template>
-  <navBar />
   <canvas class="webgl"></canvas>
 </template>
 
@@ -290,9 +289,6 @@ export default {
     };
 
     tick();
-  },
-  components: {
-    navBar,
   },
 };
 </script>

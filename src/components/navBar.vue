@@ -2,11 +2,11 @@
   <nav>
     <router-link to="/">Home</router-link>
     <ul class="navBar">
-      <li><router-link to="">Projects</router-link></li>
+      <!-- <li><router-link to="">Projects</router-link></li>
       <li><router-link to="">Blog</router-link></li>
       <li><router-link to="">About me</router-link></li>
       <li><router-link to="">CV</router-link></li>
-      <li><router-link to="">Playing</router-link></li>
+      <li><router-link to="">Playing</router-link></li> -->
       <li><router-link to="/contacme">Contact me</router-link></li>
     </ul>
   </nav>
@@ -19,7 +19,7 @@ nav{
   display: flex;
   justify-content: space-between;
   padding: var(--small);
-  background-color:var(--black);
+  background-color:transparent;
 }
 .navBar {
   color: white;
@@ -34,5 +34,6 @@ nav{
  a {
   text-decoration: none;
   color: var(--white);
+  font-size: var(--normal);
 }
 </style>

@@ -4,50 +4,59 @@
     name="contact"
     data-netlify="true"
     data-netlify-honeypot="bot-field"
+    action="/pages/success"
     @submit="onSubmit"
+    class="gradient-background"
   >
     <textTitle text="Contact Form" />
     <div class="form">
       <input type="hidden" name="form-name" value="contact" />
-      <label>
-        Nombre:
-        <Field id="name" name="name" type="text" :rules="nameRule" />
-      </label>
-        <ErrorMessage name="name" /> 
-      <label>
-        Email:
-        <Field id="email" name="email" type="email" :rules="emailRule"  />
-      </label>
+      <div class="margin-inputs">
+        <label>
+          Nombre:
+          <Field id="name" name="name" type="text" :rules="nameRule" />
+        </label>
+      </div>
+      <ErrorMessage name="name" />
+      <div class="margin-inputs">
+        <label>
+          Email:
+          <Field id="email" name="email" type="email" :rules="emailRule" />
+        </label>
+      </div>
       <ErrorMessage name="email" />
+      <div class="margin-inputs">
+
       <label>
         Mensaje:
-        <Field id="message" name="message" type="text" :rules="messageRule" />
+        <Field id="message" name="message" type="text" as="textarea" :rules="messageRule" />
       </label>
+      </div>
       <ErrorMessage name="message" />
-      <button type="submit" class="submit-button">Send message</button>     
+      <button type="submit" class="submit-button">Send message</button>
     </div>
   </Form>
 </template>
 <script>
 import textTitle from "../common/Title.vue";
 
-import { Field, Form, ErrorMessage  } from "vee-validate";
-import * as yup from 'yup';
+import { Field, Form, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
 export default {
   components: {
     textTitle,
     Field,
     Form,
-    ErrorMessage 
+    ErrorMessage,
   },
   data() {
     return {
       emailRule: yup.string().required().email(),
       nameRule: yup.string().required(),
       messageRule: yup.string().required(),
-    }
+    };
   },
-   methods: {
+  methods: {
     encode(data) {
       return Object.keys(data)
         .map(
@@ -56,7 +65,7 @@ export default {
         .join("&");
     },
     onSubmit(event) {
-      console.log(event)
+      console.log(event);
       fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -66,10 +75,10 @@ export default {
         }),
       })
         .then(() => {
-          document.getElementById('name').value = ''
-          document.getElementById('email').value = ''
-          document.getElementById('message').value = ''
-          console.log('todo bien')
+          document.getElementById("name").value = "";
+          document.getElementById("email").value = "";
+          document.getElementById("message").value = "";
+          console.log("todo bien");
         })
         .catch((error) => {
           console.error(error);
@@ -84,6 +93,9 @@ form {
   border-radius: 25px;
   background: #f7f7f7;
   box-shadow: inset 17px 17px 34px #d2d2d2, inset -17px -17px 34px #ffffff;
+  border-radius: 94% 6% 77% 23% / 5% 91% 9% 95%;
+
+
 }
 .form {
   display: flex;
@@ -110,7 +122,10 @@ form {
   outline: max(1px, 0.1em) dashed currentColor;
   outline-offset: -0.25em;
 }
-input {
+.margin-inputs {
+  margin: var(--normal) 0;
+}
+input, textarea {
   outline: none;
   outline-offset: none;
   padding: var(--small);
@@ -119,5 +134,6 @@ input {
   border-radius: var(--radiusinput);
   background: linear-gradient(145deg, #cacaca, #f0f0f0);
   box-shadow: 25px 25px 51px #bcbcbc, -25px -25px 51px #ffffff;
+  display: block;
 }
 </style>

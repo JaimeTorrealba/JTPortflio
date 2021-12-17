@@ -26,6 +26,7 @@
   body {
     overflow: hidden;
     font-family: CascadiaCode;
+    background-color: var(--black);
   }
 
   /* Variables */
@@ -38,7 +39,7 @@
     --large : 2rem;
     --extralarge : 3rem;
     
-    --radiusinput : 25px;
+    --radiusinput : 20px;
     --radiusbutton : 5px;
     --radiuslayout : 2rem;
     
@@ -46,6 +47,7 @@
     /* Colors */
     --white: #F7F7F7;
     --black: #333;
+    --blue:#4568DC;
 
 }
 
