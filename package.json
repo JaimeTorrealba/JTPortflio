@@ -7,6 +7,7 @@
     "serve": "vite preview "
   },
   "dependencies": {
+    "@vueuse/core": "^7.3.0",
     "dat.gui": "^0.7.7",
     "gsap": "^3.8.0",
     "three": "^0.134.0",
