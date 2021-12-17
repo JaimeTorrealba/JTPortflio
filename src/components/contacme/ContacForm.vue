@@ -2,7 +2,7 @@
   <Form
     method="POST"
     name="contact"
-    data-netlify="true"
+    netlify
   >
     <textTitle text="Contact Form" />
     <div class="form">
