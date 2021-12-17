@@ -12,8 +12,8 @@ import * as dat from "dat.gui";
 import { gsap } from "gsap";
 //Assets for ThreeJS working
 import whiteBluff from "../assets/ThreeJS/assets/whitefluff.png";
-import galaxyVertexShader from '../assets/ThreeJS/shaders/particlesCircle/vertex.glsl'
-import galaxyVertexFragment from '../assets/ThreeJS/shaders/particlesCircle/fragment.glsl'
+import galaxyVertexShader from "../assets/ThreeJS/shaders/particlesCircle/vertex.glsl";
+import galaxyVertexFragment from "../assets/ThreeJS/shaders/particlesCircle/fragment.glsl";
 
 export default {
   mounted() {
@@ -26,11 +26,11 @@ export default {
       console.log("THREE:::", THREE);
       const axesHelper = new THREE.AxesHelper();
       scene.add(axesHelper);
-      // const gui = new dat.GUI();
+       const gui = new dat.GUI();
+       console.log(gui)
     }
     const parameters = {};
     parameters.count = 100000;
-    parameters.size = 0.005;
     parameters.radius = 5;
     parameters.branches = 5;
     parameters.spin = 1;
@@ -122,8 +122,6 @@ export default {
        * Material
        */
       material = new THREE.ShaderMaterial({
-        size: parameters.size,
-        sizeAttenuation: true,
         depthWrite: false,
         blending: THREE.AdditiveBlending,
         vertexColors: true,
@@ -203,7 +201,7 @@ export default {
           fontParams
         );
         textGeometryTitle.center();
-        fontParams.size = 0.10;
+        fontParams.size = 0.1;
         const textGeometrySubTitle = new TextGeometry(
           "Creative Developer",
           fontParams
@@ -265,7 +263,6 @@ export default {
      */
 
     generateGalaxy();
-    console.log(generateGalaxy);
 
     /**
      * Animate
@@ -277,7 +274,7 @@ export default {
       const elapsedTime = clock.getElapsedTime();
 
       //animated galaxy
-      material.uniforms.uTime.value = elapsedTime
+      material.uniforms.uTime.value = elapsedTime;
 
       // Render
       renderer.render(scene, camera);
@@ -300,5 +297,8 @@ export default {
   left: 0;
   outline: none;
   z-index: -100;
+}
+.dg.a{
+  margin-top: 5%;
 }
 </style>

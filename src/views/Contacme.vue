@@ -53,24 +53,28 @@ export default {
 </script>
 <style lang="scss" scoped>
 .form-view {
- 
   min-height: 100vh;
-  display:grid;
+  display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: center;
   @media screen and (max-width: 600px) {
-  grid-template-columns: 1fr;
-  grid-template-rows:1fr 0.75fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 0.75fr;
   }
 }
-.section1{
-   @media screen and (max-width: 600px) {
-  order: 2;
+.section1 {
+  @media screen and (max-width: 600px) {
+    order: 2;
   }
 }
-.section2{
-   @media screen and (max-width: 600px) {
-  order: 1;
+.section2 {
+  @media screen and (max-width: 600px) {
+    order: 1;
   }
+}
+</style>
+<style>
+body{
+  background-color: var(--black);
 }
 </style>

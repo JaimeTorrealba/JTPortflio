@@ -1,4 +1,5 @@
 <template>
+
   <nav>
     <router-link to="/">Home</router-link>
     <ul class="navBar">
@@ -15,11 +16,12 @@
 export default {};
 </script>
 <style lang="scss" scoped>
-nav{
+nav {
   display: flex;
   justify-content: space-between;
   padding: var(--small);
-  background-color:transparent;
+  background-image: url('../assets/img/banner.svg');
+  background-size: cover;
 }
 .navBar {
   color: white;
@@ -27,11 +29,11 @@ nav{
   justify-content: flex-end;
   list-style: none;
 }
-  /* gab */
- .navBar > li {
+/* gab */
+.navBar > li {
   margin: 0 var(--small);
 }
- a {
+a {
   text-decoration: none;
   color: var(--white);
   font-size: var(--normal);

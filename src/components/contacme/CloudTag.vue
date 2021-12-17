@@ -131,7 +131,6 @@ export default {
     document.querySelectorAll("ul.cloud a").forEach((i) => {
       i.style.setProperty("--size", i.dataset.weight);
     });
-    console.log(gsap);
     gsap.from(".cloud-tag-link", {
       duration: 1.3,
       opacity: 1,
