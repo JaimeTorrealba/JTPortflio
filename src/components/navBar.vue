@@ -20,8 +20,6 @@ nav {
   display: flex;
   justify-content: space-between;
   padding: var(--small);
-  background-image: url('../assets/img/banner.svg');
-  background-size: cover;
 }
 .navBar {
   color: white;

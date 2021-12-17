@@ -27,7 +27,6 @@ export default {
       const axesHelper = new THREE.AxesHelper();
       scene.add(axesHelper);
        const gui = new dat.GUI();
-       console.log(gui)
     }
     const parameters = {};
     parameters.count = 100000;

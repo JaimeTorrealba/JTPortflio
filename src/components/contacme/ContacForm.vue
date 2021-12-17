@@ -3,10 +3,6 @@
     method="POST"
     name="contact"
     data-netlify="true"
-    data-netlify-honeypot="bot-field"
-    action="/pages/success"
-    @submit="onSubmit"
-    class="gradient-background"
   >
     <textTitle text="Contact Form" />
     <div class="form">
@@ -26,11 +22,16 @@
       </div>
       <ErrorMessage name="email" />
       <div class="margin-inputs">
-
-      <label>
-        Mensaje:
-        <Field id="message" name="message" type="text" as="textarea" :rules="messageRule" />
-      </label>
+        <label>
+          Mensaje:
+          <Field
+            id="message"
+            name="message"
+            type="text"
+            as="textarea"
+            :rules="messageRule"
+          />
+        </label>
       </div>
       <ErrorMessage name="message" />
       <button type="submit" class="submit-button">Send message</button>
@@ -56,35 +57,6 @@ export default {
       messageRule: yup.string().required(),
     };
   },
-  methods: {
-    encode(data) {
-      return Object.keys(data)
-        .map(
-          (key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-        )
-        .join("&");
-    },
-    onSubmit(event) {
-      console.log(event);
-      fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: this.encode({
-          "form-name": "contact",
-          ...this.form,
-        }),
-      })
-        .then(() => {
-          document.getElementById("name").value = "";
-          document.getElementById("email").value = "";
-          document.getElementById("message").value = "";
-          console.log("todo bien");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-  },
 };
 </script>
 <style lang="scss" scoped>
@@ -94,8 +66,6 @@ form {
   background: #f7f7f7;
   box-shadow: inset 17px 17px 34px #d2d2d2, inset -17px -17px 34px #ffffff;
   border-radius: 94% 6% 77% 23% / 5% 91% 9% 95%;
-
-
 }
 .form {
   display: flex;
@@ -125,7 +95,8 @@ form {
 .margin-inputs {
   margin: var(--normal) 0;
 }
-input, textarea {
+input,
+textarea {
   outline: none;
   outline-offset: none;
   padding: var(--small);
