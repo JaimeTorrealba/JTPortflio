@@ -1,12 +1,13 @@
 <template>
   <Form
-    method="POST"
-    name="contact"
-    netlify
+    name="contactMe"
+    method="post"
+    data-netlify="true"
+    data-netlify-honeypot="bot-field"
   >
     <textTitle text="Contact Form" />
     <div class="form">
-      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="form-name" value="contactMe" />
       <div class="margin-inputs">
         <label>
           Nombre:
