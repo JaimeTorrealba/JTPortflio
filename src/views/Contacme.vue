@@ -6,7 +6,7 @@
     <section class="section2">
       <ContactForm />
     </section>
-  <JaguarAnimation />
+    <JaguarAnimation />
   </div>
 </template>
 <script>
@@ -18,15 +18,15 @@ export default {
   components: {
     ContactForm,
     CloudTag,
-    JaguarAnimation
+    JaguarAnimation,
   },
 };
 </script>
 <style lang="scss" scoped>
 .form-view {
-  min-height: 100vh;
+  min-height: 90vh;
   display: grid;
-  grid-template-columns: minmax(300px, max-content) 1fr;
+  grid-template-columns: minmax(300px, 1.5fr) 1fr;
   place-items: center;
   @media screen and (max-width: 600px) {
     grid-template-columns: 1fr;
@@ -45,7 +45,8 @@ export default {
 }
 </style>
 <style>
-body{
-  background-color: var(--black);
+body {
+  background: #e0e0e0;
+  box-shadow: inset 20px 40px 100px #5a5a5a;
 }
 </style>

@@ -11,13 +11,14 @@ export default {
   setup() {
     //TODO ver porque no recarga threeJS con SPA router
     //TODO agregar debuggers a dat.gui y axeHelpers
+    //TODO destruir los eventListener
+    //TODO Cambiar fondo a contactanos 
 
     onMounted(() => {
      experience = new Experience(document.querySelector("canvas.webgl"))     
    })
    onUnmounted(() => {
      experience.destroy()
-     experience = null
    })
   },
 

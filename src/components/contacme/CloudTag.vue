@@ -1,5 +1,5 @@
 <template>
-  <div class="container cloud-container gradient-background">
+  <div class="container cloud-container">
     <ul class="cloud">
       <li>
         <a
@@ -33,16 +33,6 @@
       </li>
       <li>
         <a
-          href="https://www.behance.net/JaimeTorrealba"
-          target="_blank"
-          class="cloud-tag-link"
-          data-weight="2"
-        >
-          Behance
-        </a>
-      </li>
-      <li>
-        <a
           href="https://www.linkedin.com/in/jaime-torrealba-cordova/"
           target="_blank"
           class="cloud-tag-link"
@@ -53,10 +43,20 @@
       </li>
       <li>
         <a
+          href="https://www.behance.net/JaimeTorrealba"
+          target="_blank"
+          class="cloud-tag-link"
+          data-weight="2"
+        >
+          Behance
+        </a>
+      </li>
+      <li>
+        <a
           href="https://codepen.io/https://codepen.io/jaimebboyjt"
           target="_blank"
           class="cloud-tag-link"
-          data-weight="9"
+          data-weight="8"
         >
           Codepen
         </a>
@@ -108,7 +108,7 @@
           class="cloud-tag-link"
           data-weight="2"
         >
-          Google develop profile
+          Google-profile
         </a>
       </li>
       <li>
@@ -131,6 +131,9 @@ export default {
     document.querySelectorAll("ul.cloud a").forEach((i) => {
       i.style.setProperty("--size", i.dataset.weight);
     });
+
+    // Animacion inicial
+
     gsap.from(".cloud-tag-link", {
       duration: 1.3,
       opacity: 1,
@@ -141,34 +144,25 @@ export default {
       ease: "power1.inOut",
       stagger: 0.1,
     });
+
+    // Timeline
+    setTimeout(() => {  
+      let tl = gsap.timeline({repeat: -1, repeatDelay: 0.5});
+      tl.to(".cloud-tag-link", {x: 10, duration: 1, stagger: 0.1,});
+      tl.to(".cloud-tag-link", {x: 0, duration: 1, stagger: 0.1,});
+    }, 5000);
+
+
+
   },
 };
 </script>
 <style lang="scss" scoped>
 .cloud-container {
-  max-width: 50vw;
-}
-.gradient-background {
-  background: radial-gradient(
-    circle,
-     rgba(171,200,223,1) 0%,
-    rgba(111,110,110,1) 25%,
-    var(--black) 55%
-  );
-  animation: gradients 2s ease infinite;
+  min-width: 50vw;
+  background: transparent;
 }
 
-@keyframes gradients {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 ul.cloud {
   list-style: none;
   padding-left: 0;
@@ -181,12 +175,17 @@ ul.cloud {
 
 ul.cloud a {
   --size: 4;
-  color: var(--white);
+  color: var(--black);
   display: block;
   padding: 0.125rem 0.25rem;
   text-decoration: none;
   position: relative;
   font-size: calc(var(--size) * 0.7rem);
+  transition: font 0.75s;
+}
+ul.cloud a:hover {
+  font-size: calc(var(--size) * 0.72rem);
+  color: rgba($color: var(--black), $alpha: 0.7);
 }
 ul.cloud[data-show-value] a::after {
   content: " (" attr(data-weight) ")";

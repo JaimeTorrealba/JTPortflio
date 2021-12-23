@@ -64,9 +64,9 @@ export default {
 form {
   padding: var(--extralarge) var(--large);
   border-radius: 25px;
-  background: #f7f7f7;
-  box-shadow: inset 17px 17px 34px #d2d2d2, inset -17px -17px 34px #ffffff;
-  border-radius: 94% 6% 77% 23% / 5% 91% 9% 95%;
+  background: linear-gradient(145deg, #cacaca, #f0f0f0);
+  box-shadow: 31px 31px 62px #9f9f9f, -31px -31px 62px #ffffff;
+  border-radius: 54% 6% 77% 23% / 5% 91% 9% 95%;
 }
 .form {
   display: flex;
@@ -79,7 +79,7 @@ form {
   border: none;
   border-radius: var(--radiusbutton);
   padding: var(--small);
-  background: linear-gradient(145deg, #f0f0f0, #cacaca);
+  background: linear-gradient(145deg, #f0f0f0, var(--gray));
   box-shadow: 5px 5px 10px #6e6e6e, -5px -5px 10px #ffffff;
   cursor: pointer;
 }
@@ -104,7 +104,7 @@ textarea {
   margin: var(--small);
   border: 0.2px solid gray;
   border-radius: var(--radiusinput);
-  background: linear-gradient(145deg, #cacaca, #f0f0f0);
+  background: var(--white);
   box-shadow: 25px 25px 51px #bcbcbc, -25px -25px 51px #ffffff;
   display: block;
 }
