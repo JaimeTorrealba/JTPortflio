@@ -13,8 +13,6 @@ export default class Shaders {
             this.debugFolder = this.debug.ui.addFolder('fox')
         }
 
-        console.log(this.debug);
-
         this.resources.on('ready', () => {
             this.generateGalaxy()
         })

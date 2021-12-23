@@ -1,6 +1,6 @@
 import whiteBluff from "../../../assets/ThreeJS/assets/whitefluff.png";
-import vertexShader from "../../../assets/ThreeJS/shaders/particlesCircle/vertex.glsl";
-import fragmentShader from "../../../assets/ThreeJS/shaders/particlesCircle/fragment.glsl";
+import vertexShader from "../shaders/particlesCircle/vertex.glsl";
+import fragmentShader from "../shaders/particlesCircle/fragment.glsl";
 
 
 export default [
