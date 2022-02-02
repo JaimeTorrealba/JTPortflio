@@ -146,21 +146,26 @@ export default {
     });
 
     // Timeline
-    setTimeout(() => {  
-      let tl = gsap.timeline({repeat: -1, repeatDelay: 0.5});
-      tl.to(".cloud-tag-link", {x: 10, duration: 1, stagger: 0.1,});
-      tl.to(".cloud-tag-link", {x: 0, duration: 1, stagger: 0.1,});
+    setTimeout(() => {
+      let tl = gsap.timeline({ repeat: -1, repeatDelay: 0.5 });
+      tl.to(".cloud-tag-link", { x: 10, duration: 1, stagger: 0.1 });
+      tl.to(".cloud-tag-link", { x: 0, duration: 1, stagger: 0.1 });
     }, 5000);
-
-
-
   },
 };
 </script>
 <style lang="scss" scoped>
 .cloud-container {
   min-width: 50vw;
+  padding: var(--large) var(--normal);
   background: transparent;
+  background-color: var(--gray);
+  box-shadow: rgb(190, 203, 216) 12px 12px 24px 0px,
+    rgb(243, 249, 255) -12px -12px 24px 0px;
+  -webkit-box-shadow: rgb(190, 203, 216) 12px 12px 24px 0px,
+    rgb(243, 249, 255) -12px -12px 24px 0px;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
 }
 
 ul.cloud {

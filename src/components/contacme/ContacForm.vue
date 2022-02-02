@@ -66,12 +66,12 @@ form {
   border-radius: 25px;
   background: linear-gradient(145deg, #cacaca, #f0f0f0);
   box-shadow: 31px 31px 62px #9f9f9f, -31px -31px 62px #ffffff;
-  border-radius: 54% 6% 77% 23% / 5% 91% 9% 95%;
+  border-radius: 54% 6% 77% 8% / 5% 91% 9% 95%;
 }
 .form {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   padding: var(--normal);
 }
 .submit-button {
@@ -80,7 +80,7 @@ form {
   border-radius: var(--radiusbutton);
   padding: var(--small);
   background: linear-gradient(145deg, #f0f0f0, var(--gray));
-  box-shadow: 5px 5px 10px #6e6e6e, -5px -5px 10px #ffffff;
+  box-shadow: -5px -5px 8px #6e6e6e, 5px -5px 10px #ffffff;
   cursor: pointer;
 }
 .submit-button:active {

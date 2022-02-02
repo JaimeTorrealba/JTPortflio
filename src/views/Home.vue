@@ -12,7 +12,7 @@ export default {
     //TODO ver porque no recarga threeJS con SPA router
     //TODO agregar debuggers a dat.gui y axeHelpers
     //TODO destruir los eventListener
-    //TODO Cambiar fondo a contactanos 
+    //TODO Agregar y Crear logo (favicon)
 
     onMounted(() => {
      experience = new Experience(document.querySelector("canvas.webgl"))     
@@ -32,5 +32,8 @@ export default {
   left: 0;
   outline: none;
   z-index: -100;
+}
+body{
+  box-shadow: transparent;
 }
 </style>
