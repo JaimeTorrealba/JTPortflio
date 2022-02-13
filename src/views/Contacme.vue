@@ -1,7 +1,7 @@
 <template>
   <div class="container form-view">
     <section class="section1">
-      <CloudTag />
+      <TechCircle />
     </section>
     <section class="section2">
       <ContactForm />
@@ -11,13 +11,13 @@
 </template>
 <script>
 import ContactForm from "../components/contacme/ContacForm.vue";
-import CloudTag from "../components/contacme/CloudTag.vue";
+import TechCircle from "../components/contacme/CircleTecnology.vue";
 import JaguarAnimation from "../components/contacme/JaguarAnimation.vue";
 
 export default {
   components: {
     ContactForm,
-    CloudTag,
+    TechCircle,
     JaguarAnimation,
   },
 };

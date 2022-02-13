@@ -57,7 +57,7 @@ export default class Texts {
         textTitle.position.y = 0.2;
 
         // Animation
-            
+
         gsap.from(textTitle.position, {
             duration: 1.3,
             x: 0,
@@ -78,7 +78,7 @@ export default class Texts {
         const textSubTitle = new Mesh(textGeometrySubTitle, textMaterial);
         textSubTitle.position.y = -0.2;
 
-            // Animation
+        // Animation
 
         gsap.from(textSubTitle.position, {
             duration: 1,

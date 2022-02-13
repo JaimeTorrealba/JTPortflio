@@ -10,7 +10,7 @@ export default class Shaders {
         this.debug = this.experience.debug
 
         if(this.debug.active){
-            this.debugFolder = this.debug.ui.addFolder('fox')
+            this.debugFolder = this.debug.ui.addFolder('Shaders')
         }
 
         this.resources.on('ready', () => {
