@@ -1,5 +1,4 @@
 <template>
-
   <nav>
     <a href="/">Home</a>
     <ul class="navBar">
@@ -7,8 +6,8 @@
       <li><router-link to="">Blog</router-link></li>
       <li><router-link to="">About me</router-link></li>
       <li><router-link to="">CV</router-link></li>
-      <li><router-link to="">Playing</router-link></li> -->
-      <li><router-link to="/contacme">Contact me</router-link></li>
+      <li><router-link to="">Playing</router-link></li> 
+      <li><router-link to="/contacme">Contact me</router-link></li> -->
     </ul>
   </nav>
 </template>

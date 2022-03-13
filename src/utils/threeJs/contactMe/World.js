@@ -1,6 +1,6 @@
 
 import Experience from "./Experience";
-import TechCircle from './TechCircle'
+import TechCircle from '../home/TechCircleCircle'
 
 export default class World{
     constructor(){

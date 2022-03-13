@@ -1,7 +1,6 @@
 <template>
   <div class="container form-view">
     <section class="section1">
-      <TechCircle />
     </section>
     <section class="section2">
       <ContactForm />
@@ -11,13 +10,12 @@
 </template>
 <script>
 import ContactForm from "../components/contacme/ContacForm.vue";
-import TechCircle from "../components/contacme/CircleTecnology.vue";
+// import TechCircle from "../components/contacme/CircleTecnology.vue";
 import JaguarAnimation from "../components/contacme/JaguarAnimation.vue";
 
 export default {
   components: {
     ContactForm,
-    TechCircle,
     JaguarAnimation,
   },
 };
@@ -42,11 +40,5 @@ export default {
   @media screen and (max-width: 600px) {
     order: 1;
   }
-}
-</style>
-<style>
-body {
-  background: #e0e0e0;
-  box-shadow: inset 20px 40px 100px #5a5a5a;
 }
 </style>

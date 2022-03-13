@@ -28,9 +28,7 @@ export default class Camera {
             0.1,
             100
         );
-        this.instance.position.x = 0.2
-        this.instance.position.y = 0
-        this.instance.position.z = 2.5
+        this.instance.position.z = this.experience.center.z
         this.scene.add(this.instance);
     }
     resize() {
@@ -39,7 +37,7 @@ export default class Camera {
     }
     update(){
          // Mouse Camera
-      this.instance.position.x = cursor.x * 0.5;
-      this.instance.position.y = cursor.y * 0.5;
+      this.instance.position.x = cursor.x * 0.5 + this.experience.center.x;
+      this.instance.position.y = cursor.y * 0.5 ;
     }
 }
