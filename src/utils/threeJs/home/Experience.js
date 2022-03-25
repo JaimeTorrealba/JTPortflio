@@ -24,7 +24,7 @@ export default class Experience {
         this.canvas = canvas
 
         //Setup
-        this.center = new THREE.Vector3(0.5, 0, 5)
+        this.center = new THREE.Vector3(0, 0, 5)
         this.debug = new Debug()      
         this.sizes = new Sizes()
         this.time = new Time()

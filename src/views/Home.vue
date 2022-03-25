@@ -31,7 +31,7 @@ export default {
   top: 0;
   left: 0;
   outline: none;
-  z-index: -100;
+  z-index: 10;
 }
 body{
   box-shadow: transparent;

@@ -1,21 +1,25 @@
 <template>
   <nav>
-    <a href="/">Home</a>
-    <ul class="navBar">
-      <!-- <li><router-link to="">Projects</router-link></li>
+    <div class="nav_wrapper">
+      <a href="/">Home</a>
+      <ul class="navBar">
+        <!-- <li><router-link to="">Projects</router-link></li>
       <li><router-link to="">Blog</router-link></li>
       <li><router-link to="">About me</router-link></li>
       <li><router-link to="">CV</router-link></li>
-      <li><router-link to="">Playing</router-link></li> 
-      <li><router-link to="/contacme">Contact me</router-link></li> -->
-    </ul>
+      <li><router-link to="">Playing</router-link></li> -->
+        <!-- <li><router-link to="/contacme">Contact me</router-link></li> -->
+      </ul>
+    </div>
   </nav>
 </template>
-<script>
-export default {};
-</script>
 <style lang="scss" scoped>
 nav {
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+}
+.nav_wrapper {
   display: flex;
   justify-content: space-between;
   padding: var(--small);
