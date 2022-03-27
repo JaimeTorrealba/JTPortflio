@@ -1,72 +1,108 @@
 <template>
-  <Form
+  <form
     name="contactMe"
     method="post"
     data-netlify="true"
     data-netlify-honeypot="bot-field"
   >
-    <textTitle text="Contact Form" />
-    <div class="form">
+    <Title text="Contact Form" class="titlePosition" :level="2" />
+    <div class="form leftSidePosition">
       <input type="hidden" name="form-name" value="contactMe" />
       <div class="margin-inputs">
         <label>
-          Nombre:
-          <Field id="name" name="name" type="text" :rules="nameRule" />
+          Name:
+          <input name="name" id="name" type="text" v-model="contactForm.name" />
         </label>
+        <ValidationErrorFields :validationError="v$.name.$silentErrors" />
       </div>
-      <ErrorMessage name="name" />
       <div class="margin-inputs">
         <label>
           Email:
-          <Field id="email" name="email" type="email" :rules="emailRule" />
-        </label>
-      </div>
-      <ErrorMessage name="email" />
-      <div class="margin-inputs">
-        <label>
-          Mensaje:
-          <Field
-            id="message"
-            name="message"
-            type="text"
-            as="textarea"
-            :rules="messageRule"
+          <input
+            name="email"
+            id="email"
+            type="email"
+            v-model="contactForm.email"
           />
         </label>
+        <ValidationErrorFields :validationError="v$.email.$silentErrors" />
       </div>
-      <ErrorMessage name="message" />
-      <button type="submit" class="submit-button">Send message</button>
+      <div class="margin-inputs">
+        <label>
+          Phone <span class="optional">(optional)</span>:
+          <input name="tlf" id="tlf" type="text" v-model="contactForm.tlf" />
+        </label>
+      </div>
     </div>
-  </Form>
+    <div class="form rightSidePosition">
+      <div class="margin-inputs">
+        <label>
+          Message:
+          <textarea
+            name="message"
+            id="message"
+            cols="20"
+            rows="10"
+            v-model="contactForm.message"
+            class="textArea"
+          ></textarea>
+        </label>
+        <ValidationErrorFields :validationError="v$.message.$silentErrors" />
+      </div>
+    </div>
+    <baseButton
+      type="submit"
+      :disabled="v$.$invalid"
+      :isDisabled="v$.$invalid"
+      text="Send message"
+      variant="success"
+      class="submitButtonPosition"
+    />
+  </form>
 </template>
 <script>
-import textTitle from "../common/Title.vue";
+import { reactive } from "vue";
+import useVuelidate from "@vuelidate/core";
+import { email, required } from "@vuelidate/validators";
 
-import { Field, Form, ErrorMessage } from "vee-validate";
-import * as yup from "yup";
+import Title from "../common/Title.vue";
+import ValidationErrorFields from "../common/ValidationErrorFields.vue";
+import baseButton from "../common/BaseButton.vue";
 export default {
   components: {
-    textTitle,
-    Field,
-    Form,
-    ErrorMessage,
+    Title,
+    ValidationErrorFields,
+    baseButton,
   },
-  data() {
-    return {
-      emailRule: yup.string().required().email(),
-      nameRule: yup.string().required(),
-      messageRule: yup.string().required(),
+  setup() {
+    const contactForm = reactive({
+      name: "",
+      email: "",
+      message: "",
+      tlf: "",
+    });
+    const rules = {
+      name: { required },
+      email: { required, email },
+      message: { required },
     };
+
+    const v$ = useVuelidate(rules, contactForm);
+
+    return { contactForm, v$ };
   },
 };
 </script>
 <style lang="scss" scoped>
 form {
   padding: var(--extralarge) var(--large);
-  border-radius: 25px;
-  background: linear-gradient(145deg, #cacaca, #f0f0f0);
-  box-shadow: 31px 31px 62px #9f9f9f, -31px -31px 62px #ffffff;
-  border-radius: 54% 6% 77% 8% / 5% 91% 9% 95%;
+  background-color: var(--gray);
+  border-radius: var(--radiuslayout);
+  display: grid;
+  grid-template-areas:
+    "title title"
+    "leftSide rightSide"
+    "submitButton submitButton";
 }
 .form {
   display: flex;
@@ -74,25 +110,7 @@ form {
   align-items: center;
   padding: var(--normal);
 }
-.submit-button {
-  margin: var(--large) 0 0 0;
-  border: none;
-  border-radius: var(--radiusbutton);
-  padding: var(--small);
-  background: linear-gradient(145deg, #f0f0f0, var(--gray));
-  box-shadow: -5px -5px 8px #6e6e6e, 5px -5px 10px #ffffff;
-  cursor: pointer;
-}
-.submit-button:active {
-  box-shadow: 2.5px 2.5px 5px #6e6e6e, -2.5px -2.5px 5px #ffffff;
-}
-.submit-button:focus {
-  outline: none;
-}
-.button:focus-visible {
-  outline: max(1px, 0.1em) dashed currentColor;
-  outline-offset: -0.25em;
-}
+
 .margin-inputs {
   margin: var(--normal) 0;
 }
@@ -100,12 +118,32 @@ input,
 textarea {
   outline: none;
   outline-offset: none;
-  padding: var(--small);
+  padding: var(--normal);
   margin: var(--small);
   border: 0.2px solid gray;
   border-radius: var(--radiusinput);
   background: var(--white);
-  box-shadow: 25px 25px 51px #bcbcbc, -25px -25px 51px #ffffff;
   display: block;
+}
+.textArea {
+  height: 100%;
+  width: 100%;
+}
+.optional {
+  font-size: calc(var(--small) * 1.75);
+}
+.titlePosition {
+  grid-area: title;
+ 
+}
+.leftSidePosition {
+  grid-area: leftSide;
+}
+.rightSidePosition {
+  grid-area: rightSide;
+}
+.submitButtonPosition {
+  grid-area: submitButton;
+   margin: 0 auto;
 }
 </style>

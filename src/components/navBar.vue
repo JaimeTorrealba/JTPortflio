@@ -8,7 +8,7 @@
       <li><router-link to="">About me</router-link></li>
       <li><router-link to="">CV</router-link></li>
       <li><router-link to="">Playing</router-link></li> -->
-        <!-- <li><router-link to="/contacme">Contact me</router-link></li> -->
+        <li><router-link to="/contacme">Contact me</router-link></li>
       </ul>
     </div>
   </nav>

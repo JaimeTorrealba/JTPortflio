@@ -3,7 +3,7 @@
     <header>
       <navBar />
     </header>
-    <main>
+    <main class="container">
       <SvgAnimation />
       <router-view v-slot="{ Component }">
         <transition
@@ -59,7 +59,7 @@ export default {
       });
     }
     function onAfterEnter(el) {
-      document.querySelector(".svgTransitionPage").style.zIndex = "0";
+      document.querySelector(".svgTransitionPage").style.zIndex = "-100";
       console.log('afterEnter');
     }
 

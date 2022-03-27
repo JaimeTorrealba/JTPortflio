@@ -12,22 +12,24 @@
 #app {
     min-height: 100vh;
   }
-  * {
+  *:not(p) {
     margin: 0;
     padding: 0;
   }
   *[title]{
     color: red;
     }
-    img[alt]{
+    img:not(img[alt]){
     border: 3px solid red 
     }
   html,
   body {
     overflow: hidden;
     font-family: CascadiaCode;
-    background-color: black;  
+    background-color: var(--black); 
+    color: var(--black); 
   }
+
   /* Variables */
 
 :root{
@@ -46,8 +48,13 @@
     /* Colors */
     --white: #F7F7F7;
     --gray: #e0e0e0;
+    --darkgray: #bbcbd6;
     --black: #333;
+    --lightblue: #d2e2ed;
     --blue:#4568DC;
+    --error:#db5656;
+
+    //los breakpoints no funcionan como variables
 
 }
 
@@ -59,10 +66,10 @@
 }
 .container{
   padding: var(--normal);
-  @media screen and (min-width:600px) and (max-width: 900px) {
+  @media screen and (min-width: 600px) and (max-width: 900px) {
     padding: var(--small);
   }
-  @media screen and (max-width:600px) {
+  @media screen and (max-width: 600px) {
     padding: 0;
   }
 }
@@ -74,25 +81,4 @@
 .center-grid{
   display: grid;
   place-items: center;
-}
-
-#test{
-  width: 10px;
-  height: 10px;
-  z-index: 1000;
-  border-radius: 50%;
-  background-color: black;
-  position: absolute;
-  top:50%;
-  left: 50%;
-}
-#test2{
-  width: 10px;
-  height: 10px;
-  z-index: 1100;
-  border-radius: 50%;
-  background-color: red;
-  position: absolute;
-  top:50%;
-  left: 50%;
 }
