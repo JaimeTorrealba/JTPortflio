@@ -103,6 +103,13 @@ form {
     "title title"
     "leftSide rightSide"
     "submitButton submitButton";
+  @media screen and (max-width: 1200px) {
+    grid-template-areas:
+      "title title"
+      "leftSide leftSide"
+      "rightSide rightSide"
+      "submitButton submitButton";
+  }
 }
 .form {
   display: flex;
@@ -134,7 +141,6 @@ textarea {
 }
 .titlePosition {
   grid-area: title;
- 
 }
 .leftSidePosition {
   grid-area: leftSide;
@@ -144,6 +150,6 @@ textarea {
 }
 .submitButtonPosition {
   grid-area: submitButton;
-   margin: 0 auto;
+  margin: 0 auto;
 }
 </style>

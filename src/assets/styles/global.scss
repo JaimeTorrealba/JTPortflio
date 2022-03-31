@@ -24,12 +24,13 @@
     }
   html,
   body {
-    overflow: hidden;
     font-family: CascadiaCode;
     background-color: var(--black); 
     color: var(--black); 
   }
-
+  a{
+    text-decoration: none;
+  }
   /* Variables */
 
 :root{
@@ -48,11 +49,15 @@
     /* Colors */
     --white: #F7F7F7;
     --gray: #e0e0e0;
-    --darkgray: #bbcbd6;
+    --backgroundwhite: #ebeceb;
     --black: #333;
-    --lightblue: #d2e2ed;
     --blue:#4568DC;
     --error:#db5656;
+
+    // z-index medidas
+    --hinter: -100;
+    --show: 0;
+    --above: 100;
 
     //los breakpoints no funcionan como variables
 
@@ -72,6 +77,9 @@
   @media screen and (max-width: 600px) {
     padding: 0;
   }
+}
+.flex{
+  display: flex;
 }
 .center-flex{
   display: flex;

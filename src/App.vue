@@ -7,11 +7,12 @@
       <SvgAnimation />
       <router-view v-slot="{ Component }">
         <transition
-          name="slide-fade"
-          @before-Enter="beforeEnter"
-          @enter="onEnter"
-          @after-enter="onAfterEnter"
+            name="svg-transition"
         >
+          <!-- 
+            @before-Enter="beforeEnter"
+          @enter="onEnter"
+          @after-enter="onAfterEnter" -->
           <component :is="Component" />
         </transition>
       </router-view>

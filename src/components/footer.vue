@@ -16,7 +16,7 @@ export default {
 .footer {
   padding: var(--small);
   color: var(--white);
-  position: absolute;
+  position: fixed;
   bottom:0;
   right: 0;
   z-index: 100;
