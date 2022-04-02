@@ -2,7 +2,7 @@
     <div class="contact-info">
         <Title text="You can also contact me for" :level="3" />
         <div class="flex buttons">
-            <ImgButton v-for="item in links" :address="item.href">
+            <ImgButton v-for="item in links" :key="item.name" :address="item.href">
                 <template #Title>
                     <Title :text="item.name" :level="3" />
                 </template>

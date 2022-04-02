@@ -8,7 +8,6 @@ module.exports = {
         // 'eslint:recommended',
         'plugin:vue/vue3-recommended',
         'plugin:vue/base',
-        '@vue/standard',
         'prettier',
     ],
     rules: {
