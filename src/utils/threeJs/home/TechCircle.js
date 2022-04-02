@@ -1,5 +1,5 @@
 import { Group, Mesh, MeshMatcapMaterial } from 'three'
-import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import Experience from '../home/Experience'
 
 export default class TechCircle {
@@ -17,12 +17,17 @@ export default class TechCircle {
     setCircles() {
         this.loaded = {}
         this.loaded.font = this.resources.items.fonts
-        this.outerGroup = new Group();
-        this.innerGroup = new Group();
-        this.Tech = [];
-        const innerCircle = ["VueJS", "ThreeJs", "GSAP", "ReactJs", "JavaScript"];
-        const outerCircle = ["CSS", "SVG", "Front-end", "Python", "PHP"];
-
+        this.outerGroup = new Group()
+        this.innerGroup = new Group()
+        this.Tech = []
+        const innerCircle = [
+            'VueJS',
+            'ThreeJs',
+            'GSAP',
+            'ReactJs',
+            'JavaScript',
+        ]
+        const outerCircle = ['CSS', 'SVG', 'Front-end', 'Python', 'PHP']
 
         //Fonts
         const fontparams = {
@@ -34,70 +39,61 @@ export default class TechCircle {
             bevelThickness: 0.01,
             bevelSize: 0.002,
             bevelOffset: 0,
-            bevelSegments: 5
-        };
+            bevelSegments: 5,
+        }
 
-
-        this.scene.add(this.outerGroup, this.innerGroup);
+        this.scene.add(this.outerGroup, this.innerGroup)
         // Material
-        const material = new MeshMatcapMaterial();
+        const material = new MeshMatcapMaterial()
 
         //Horizontal words
         innerCircle.map((map, index) => {
-            const textGeometry = new TextGeometry(
-                map,
-                fontparams
-            );
+            const textGeometry = new TextGeometry(map, fontparams)
 
-            let individualTech = null;
-            const range = (index % innerCircle.length) / innerCircle.length;
-            const angle = range * Math.PI * 2; // Random angle
-            const radius = 1 + range; // Random radius
-            textGeometry.center();
-            individualTech = new Mesh(textGeometry, material);
+            let individualTech = null
+            const range = (index % innerCircle.length) / innerCircle.length
+            const angle = range * Math.PI * 2 // Random angle
+            const radius = 1 + range // Random radius
+            textGeometry.center()
+            individualTech = new Mesh(textGeometry, material)
 
-            const y = Math.cos(angle) * radius;
-            const x = Math.sin(angle) * radius;
+            const y = Math.cos(angle) * radius
+            const x = Math.sin(angle) * radius
 
-            individualTech.position.set(x, y, 0);
-            this.innerGroup.add(individualTech);
-            this.Tech.push(individualTech);
-        });
+            individualTech.position.set(x, y, 0)
+            this.innerGroup.add(individualTech)
+            this.Tech.push(individualTech)
+        })
 
         //verical words
         outerCircle.map((map, index) => {
-            const textGeometry = new TextGeometry(
-                map,
-                fontparams
-            );
+            const textGeometry = new TextGeometry(map, fontparams)
             const range =
-            ((index % outerCircle.length) / outerCircle.length) * 2;
-            const angle = range * Math.PI * 2 ; // Random angle
-            const radius = 1.5 + range; // Random radius
-            textGeometry.computeBoundingBox();
+                ((index % outerCircle.length) / outerCircle.length) * 2
+            const angle = range * Math.PI * 2 // Random angle
+            const radius = 1.5 + range // Random radius
+            textGeometry.computeBoundingBox()
             textGeometry.translate(
                 (textGeometry.boundingBox.max.x - 0.02) * -0.5,
                 (textGeometry.boundingBox.max.y - 0.02) * -0.5,
                 (textGeometry.boundingBox.max.z - 0.03) * 10
-                );
-            const individualTech = new Mesh(textGeometry, material);
-            const y = Math.cos(angle) * radius;
-            const x = Math.sin(angle) * radius;
+            )
+            const individualTech = new Mesh(textGeometry, material)
+            const y = Math.cos(angle) * radius
+            const x = Math.sin(angle) * radius
 
-            individualTech.position.set(x, y, 0);
-            this.outerGroup.add(individualTech);
-            this.Tech.push(individualTech);
-        });
+            individualTech.position.set(x, y, 0)
+            this.outerGroup.add(individualTech)
+            this.Tech.push(individualTech)
+        })
     }
     update() {
         if (this.outerGroup && this.innerGroup) {
-            this.outerGroup.rotation.z = this.experience.time.elapsed * - 0.00025;
-            this.innerGroup.rotation.y = this.experience.time.elapsed * - 0.00025;
+            this.outerGroup.rotation.z = this.experience.time.elapsed * -0.00025
+            this.innerGroup.rotation.y = this.experience.time.elapsed * -0.00025
             this.Tech.map((elem) => {
-                elem.lookAt(this.center);
-              });
+                elem.lookAt(this.center)
+            })
         }
-
     }
-
 }

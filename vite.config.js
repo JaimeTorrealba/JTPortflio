@@ -4,5 +4,5 @@ import glslify from 'vite-plugin-glslify'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), glslify()]
+    plugins: [vue(), glslify()],
 })

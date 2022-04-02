@@ -13,13 +13,13 @@ export default class Renderer {
     }
     setInstance() {
         this.instance = new WebGLRenderer({
-            canvas: this.canvas
+            canvas: this.canvas,
         })
-        this.instance.setSize(this.sizes.width, this.sizes.height);
-        this.instance.setPixelRatio(this.sizes.pixelRatio);
+        this.instance.setSize(this.sizes.width, this.sizes.height)
+        this.instance.setPixelRatio(this.sizes.pixelRatio)
     }
 
-    update(){
+    update() {
         this.instance.render(this.scene, this.camera.instance)
     }
 }

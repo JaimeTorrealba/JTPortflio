@@ -11,6 +11,6 @@ const router = createRouter({
         { path: '/contacme', name: 'contacme', component: Contacme },
         { path: '/about', name: 'About', component: About },
         { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
-    ]
+    ],
 })
 export default router

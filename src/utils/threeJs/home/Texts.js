@@ -1,9 +1,8 @@
 import { Mesh, MeshMatcapMaterial } from 'three'
-import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import { gsap } from 'gsap'
 
 import Experience from './Experience'
-
 
 export default class Texts {
     constructor() {
@@ -11,18 +10,15 @@ export default class Texts {
         this.scene = this.experience.scene
         this.resources = this.experience.resources
 
-
         this.resources.on('ready', () => {
             this.setTitles()
         })
-
     }
 
     setTitles() {
         this.loaded = {}
         this.loaded.texture = this.resources.items.matcaptexture
         this.loaded.font = this.resources.items.fonts
-
 
         // /**
         //  * Font
@@ -37,24 +33,24 @@ export default class Texts {
             bevelSize: 0.01,
             bevelOffset: 0,
             bevelSegments: 4,
-        };
+        }
 
         const textMaterial = new MeshMatcapMaterial({
             matcap: this.loaded.texture,
             transparent: true,
-        });
+        })
 
         // /**
         //  * Title
         //  */
 
         const textGeometryTitle = new TextGeometry(
-            "Jaime Torrealba",
+            'Jaime Torrealba',
             fontParams
-        );
-        textGeometryTitle.center();
-        const textTitle = new Mesh(textGeometryTitle, textMaterial);
-        textTitle.position.y = 0.2;
+        )
+        textGeometryTitle.center()
+        const textTitle = new Mesh(textGeometryTitle, textMaterial)
+        textTitle.position.y = 0.2
 
         // Animation
 
@@ -63,20 +59,20 @@ export default class Texts {
             x: 0,
             y: 2,
             z: 0.5,
-        });
+        })
 
         // /**
         //  * SubTitle
         //  */
 
-        fontParams.size = 0.1;
+        fontParams.size = 0.1
         const textGeometrySubTitle = new TextGeometry(
-            "Creative Developer",
+            'Creative Developer',
             fontParams
-        );
-        textGeometrySubTitle.center();
-        const textSubTitle = new Mesh(textGeometrySubTitle, textMaterial);
-        textSubTitle.position.y = -0.2;
+        )
+        textGeometrySubTitle.center()
+        const textSubTitle = new Mesh(textGeometrySubTitle, textMaterial)
+        textSubTitle.position.y = -0.2
 
         // Animation
 
@@ -85,11 +81,8 @@ export default class Texts {
             x: 0,
             y: -2,
             z: 0.5,
-        });
+        })
 
-
-        this.scene.add(textTitle, textSubTitle);
-
+        this.scene.add(textTitle, textSubTitle)
     }
-
 }

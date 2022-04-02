@@ -8,13 +8,12 @@ import Sizes from './SizeContacMe'
 import Renderer from './Renderer'
 import World from './World'
 
-
-
 let instance = null
 
 export default class Experience {
     constructor(canvas) {
-        if (instance) { // singleton
+        if (instance) {
+            // singleton
             return instance
         }
         instance = this
@@ -39,32 +38,30 @@ export default class Experience {
         this.time.on('tick', () => {
             this.update()
         })
-
     }
     update() {
         this.renderer.update()
         this.world.update()
     }
-    destroy(){
+    destroy() {
         this.sizes.off('resize')
         this.time.off('tick')
 
-    //     this.scene.traverse((child) => {
-    //         if(child instanceof THREE.Mesh){
-    //             child.geometry.dispose()
+        //     this.scene.traverse((child) => {
+        //         if(child instanceof THREE.Mesh){
+        //             child.geometry.dispose()
 
-    //             for(const key in child.material){
-    //                 const value = child.material[key]
+        //             for(const key in child.material){
+        //                 const value = child.material[key]
 
-    //                 if(value && typeof value.dispose === 'function'){
-    //                     value.dispose()
-    //                 }
+        //                 if(value && typeof value.dispose === 'function'){
+        //                     value.dispose()
+        //                 }
 
-    //             }
-    //         }
-    //     })
-    //     this.renderer.instance.dispose()
-    //     if(this.debug.active) this.debug.ui.destroy()
+        //             }
+        //         }
+        //     })
+        //     this.renderer.instance.dispose()
+        //     if(this.debug.active) this.debug.ui.destroy()
     }
-
 }

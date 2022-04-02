@@ -10,13 +10,12 @@ import Renderer from './Renderer'
 import World from './World'
 import sources from './sources'
 
-
-
 let instance = null
 
 export default class Experience {
     constructor(canvas) {
-        if (instance) { // singleton
+        if (instance) {
+            // singleton
             return instance
         }
         instance = this
@@ -25,14 +24,14 @@ export default class Experience {
 
         //Setup
         this.center = new THREE.Vector3(0, 0, 5)
-        this.debug = new Debug()      
+        this.debug = new Debug()
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new THREE.Scene()
         this.resources = new Resources(sources)
         this.camera = new Camera()
         this.renderer = new Renderer()
-        this.world = new World() 
+        this.world = new World()
 
         //sizes event
         this.sizes.on('resize', () => {
@@ -43,7 +42,6 @@ export default class Experience {
         this.time.on('tick', () => {
             this.update()
         })
-
     }
     resize() {
         this.camera.resize()
@@ -54,26 +52,24 @@ export default class Experience {
         this.camera.update()
         this.world.update()
     }
-    destroy(){
+    destroy() {
         this.sizes.off('resize')
         this.time.off('tick')
 
         this.scene.traverse((child) => {
-            if(child instanceof THREE.Mesh){
+            if (child instanceof THREE.Mesh) {
                 child.geometry.dispose()
-                
-                for(const key in child.material){
+
+                for (const key in child.material) {
                     const value = child.material[key]
 
-                    if(value && typeof value.dispose === 'function'){
+                    if (value && typeof value.dispose === 'function') {
                         value.dispose()
                     }
-
                 }
             }
         })
         this.renderer.instance.dispose()
-        if(this.debug.active) this.debug.ui.destroy()
+        if (this.debug.active) this.debug.ui.destroy()
     }
-
 }

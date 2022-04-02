@@ -1,58 +1,56 @@
+/* Imports */
 
-  /* Imports */
-
-  @font-face {
+@font-face {
     font-family: 'CascadiaCode';
     font-display: swap;
-    src: local('CascadiaCode'), url(../fonts/CascadiaCode.woff2) format('truetype');
-  }
-  
+    src: local('CascadiaCode'),
+        url(../fonts/CascadiaCode.woff2) format('truetype');
+}
 
 /* Normalize */
 #app {
     min-height: 100vh;
-  }
-  *:not(p) {
+}
+*:not(p) {
     margin: 0;
     padding: 0;
-  }
-  *[title]{
+}
+*[title] {
     color: red;
-    }
-    img:not(img[alt]){
-    border: 3px solid red 
-    }
-  html,
-  body {
+}
+img:not(img[alt]) {
+    border: 3px solid red;
+}
+html,
+body {
     font-family: CascadiaCode;
-    background-color: var(--black); 
-    color: var(--black); 
-  }
-  a{
+    background-color: var(--black);
+    color: var(--black);
+}
+a {
     text-decoration: none;
-  }
-  /* Variables */
+}
+/* Variables */
 
-:root{
+:root {
     /* medidas */
-    --small : 0.5rem;
-    --normal : 1rem;
-    --medium : 1.5rem;
-    --large : 2rem;
-    --extralarge : 3rem;
-    
-    --radiusinput : 10px;
-    --radiusbutton : 5px;
-    --radiuslayout : 2rem;
-    
+    --small: 0.5rem;
+    --normal: 1rem;
+    --medium: 1.5rem;
+    --large: 2rem;
+    --extralarge: 3rem;
+
+    --radiusinput: 10px;
+    --radiusbutton: 5px;
+    --radiuslayout: 2rem;
 
     /* Colors */
-    --white: #F7F7F7;
+    --white: #f7f7f7;
     --gray: #e0e0e0;
     --backgroundwhite: #ebeceb;
     --black: #333;
-    --blue:#4568DC;
-    --error:#db5656;
+    --blue: #4568dc;
+    --error: #db5656;
 
     // z-index medidas
     --hinter: -100;
@@ -60,33 +58,31 @@
     --above: 100;
 
     //los breakpoints no funcionan como variables
-
 }
-
 
 /* Utils */
 
 .debug {
-  border: 1px red solid;
+    border: 1px red solid;
 }
-.container{
-  padding: var(--normal);
-  @media screen and (min-width: 600px) and (max-width: 900px) {
-    padding: var(--small);
-  }
-  @media screen and (max-width: 600px) {
-    padding: 0;
-  }
+.container {
+    padding: var(--normal);
+    @media screen and (min-width: 600px) and (max-width: 900px) {
+        padding: var(--small);
+    }
+    @media screen and (max-width: 600px) {
+        padding: 0;
+    }
 }
-.flex{
-  display: flex;
+.flex {
+    display: flex;
 }
-.center-flex{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.center-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.center-grid{
-  display: grid;
-  place-items: center;
+.center-grid {
+    display: grid;
+    place-items: center;
 }
