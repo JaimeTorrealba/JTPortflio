@@ -12,38 +12,38 @@
                 <label>
                     Name:
                     <input
-                        name="name"
                         id="name"
-                        type="text"
                         v-model="contactForm.name"
+                        name="name"
+                        type="text"
                     />
                 </label>
                 <ValidationErrorFields
-                    :validationError="v$.name.$silentErrors"
+                    :validation-error="v$.name.$silentErrors"
                 />
             </div>
             <div class="margin-inputs">
                 <label>
                     Email:
                     <input
-                        name="email"
                         id="email"
-                        type="email"
                         v-model="contactForm.email"
+                        name="email"
+                        type="email"
                     />
                 </label>
                 <ValidationErrorFields
-                    :validationError="v$.email.$silentErrors"
+                    :validation-error="v$.email.$silentErrors"
                 />
             </div>
             <div class="margin-inputs">
                 <label>
                     Phone <span class="optional">(optional)</span>:
                     <input
-                        name="tlf"
                         id="tlf"
-                        type="text"
                         v-model="contactForm.tlf"
+                        name="tlf"
+                        type="text"
                     />
                 </label>
             </div>
@@ -54,22 +54,22 @@
                     Message:
                     <textarea
                         id="message"
-                        name="message"
-                        cols="20"
-                        rows="10"
                         v-model="contactForm.message"
+                        name="message"
+                        cols="10"
+                        rows="10"
                         class="textArea"
                     ></textarea>
                 </label>
                 <ValidationErrorFields
-                    :validationError="v$.message.$silentErrors"
+                    :validation-error="v$.message.$silentErrors"
                 />
             </div>
         </div>
         <baseButton
             type="submit"
             :disabled="v$.$invalid"
-            :isDisabled="v$.$invalid"
+            :is-disabled="v$.$invalid"
             text="Send message"
             variant="success"
             class="submitButtonPosition"
@@ -112,7 +112,7 @@ export default {
 <style lang="scss" scoped>
 form {
     padding: var(--extralarge) var(--large);
-    background-color: var(--gray);
+    background: linear-gradient(158deg, var(--gray) 0%,var(--black) 90%);
     border-radius: var(--radiuslayout);
     display: grid;
     grid-template-areas:
@@ -120,6 +120,7 @@ form {
         'leftSide rightSide'
         'submitButton submitButton';
     @media screen and (max-width: 1200px) {
+        --large:0;
         grid-template-areas:
             'title title'
             'leftSide leftSide'
@@ -132,6 +133,9 @@ form {
     flex-direction: column;
     align-items: center;
     padding: var(--normal);
+    @media screen and (max-width: 700px) {
+        align-items: flex-start;
+    }
 }
 
 .margin-inputs {

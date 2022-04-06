@@ -1,3 +1,13 @@
+<script>
+export default {
+    props: {
+        address: {
+            required: true,
+            type: String,
+        },
+    },
+}
+</script>
 <template>
     <a
         class="button-layout button-neumorphic"
@@ -9,17 +19,38 @@
         <slot name="Img" />
     </a>
 </template>
-<script>
-export default {
-    props: {
-        address: {
-            required: true,
-            type: String,
-        },
-    },
-}
-</script>
 <style lang="scss" scoped>
+a {
+    position: relative;
+}
+a:before {
+    content: '#';
+    font-size: 2rem;
+    color: var(--black);
+    position: absolute;
+    left: 5%;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+a:hover:before {
+    opacity: 1;
+}
+a:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  top: 97%;
+  left: 0;
+  height: 3%;
+  transform: scale(0);
+  transform-origin: top left;
+  transition: 0.75s;
+  background: var(--black);
+}
+a:hover:after {
+  transform: scaleX(1);
+}
+
 .button-layout {
     display: flex;
     justify-content: space-around;
