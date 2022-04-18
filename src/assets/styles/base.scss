@@ -1,0 +1,56 @@
+/* Imports */
+
+@font-face {
+    font-family: 'CascadiaCode';
+    font-display: swap;
+    src: local('CascadiaCode'),
+        url(../fonts/CascadiaCode.woff2) format('truetype');
+}
+
+/* Normalize */
+#app {
+    min-height: 100vh;
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+*:not(p) {
+    margin: 0;
+    padding: 0;
+}
+*[title] {
+    color: red;
+}
+img:not(img[alt]) {
+    border: 3px solid red;
+}
+html,
+body {
+    font-family: CascadiaCode;
+    background: radial-gradient(circle, var(--backgroundwhite) 0%, rgba(51,51,51,1) 60%);
+    color: var(--black);
+    h1 {
+        font-size: clamp(1.487rem, calc(12px + 1.925vw), 2.012rem);
+        line-height: 1.1;
+    }
+    h2 {
+        font-size: clamp(1.225rem, calc(12px + 1.4vw), 1.575rem);
+        line-height: 1.1;
+    }
+    h3 {
+        font-size: clamp(0.997rem, calc(12px + 1.05vw), 1.313rem);
+        line-height: 1.1;
+    }
+    h4, p {
+        font-size: clamp(0.875rem, calc(12px + 0.7vw), 1.05rem);
+        line-height: 1.3;
+    }
+}
+a {
+    text-decoration: none;
+}

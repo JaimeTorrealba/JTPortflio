@@ -1,0 +1,27 @@
+:root {
+    /* medidas */
+    --small: 0.5rem;
+    --normal: 1rem;
+    --medium: 1.5rem;
+    --large: 2rem;
+    --extralarge: 3rem;
+
+    --radiusinput: 10px;
+    --radiusbutton: 5px;
+    --radiuslayout: 2rem;
+
+    /* Colors */
+    --white: #f7f7f7;
+    --gray: #e0e0e0;
+    --backgroundwhite: #ebeceb;
+    --black: #333;
+    --blue: #4568dc;
+    --error: #db5656;
+
+    // z-index medidas
+    --hinter: -100;
+    --show: 0;
+    --above: 100;
+
+    //los breakpoints no funcionan como variables
+}
